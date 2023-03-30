@@ -33,14 +33,24 @@
                 <i class="icon play circle orange"></i>In Progress Tasks ({{
                 todoTasks.length }})
               </div>
-              <task v-bind:task="task" v-for="task in todoTasks" />
+              <task
+                :tasks="tasks"
+                v-bind:task="task"
+                v-for="task in todoTasks"
+                :key="task.id"
+              />
             </div>
             <div id="completed" class="tasklist">
               <div class="ui header">
                 <i class="icon check circle green"></i>Completed Tasks ({{
                 completedTasks.length }})
               </div>
-              <task v-bind:task="task" v-for="task in completedTasks" />
+              <task
+                :tasks="tasks"
+                v-bind:task="task"
+                v-for="task in completedTasks"
+                :key="task.id"
+              />
             </div>
           </div>
           <div class="six wide column"></div>
