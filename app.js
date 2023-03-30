@@ -1,3 +1,13 @@
+Vue.component('task', {
+  props: ['task'],
+  template: `
+    <div class="ui segment task" v-bind:class="task.completed ? 'done' : 'todo' ">
+      {{ task.id }} {{ task.name }}: {{ task.description }} completed? {{
+      task.completed }}
+    </div>
+  `
+});
+
 var app = new Vue({
   el: '#app',
   data: {
