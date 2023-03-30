@@ -10,18 +10,31 @@ Vue.component('task', {
           </div>
         </div>
         <div class="right floated three wide column">
+         <i class="icon trash red" alt="Delete" v-on:click="deleteTask($event, task.id)"></i>
         </div>
       </div>
     </div>
     `,
   methods: {
     toggleDone: function (event, id) {
+      event.stopImmediatePropagation();
       //console.log(event);
       //console.log(id);
       let task = this.tasks.find(item => item.id == id)
       if (task) {
         task.completed = !task.completed;
         console.log("task toggled");
+      }
+    },
+    deleteTask: function (event, id) {
+      event.stopImmediatePropagation();
+      //console.log(event);
+      //console.log(id);
+      let taskIndex = this.tasks.findIndex(item => item.id == id);
+
+      if (taskIndex > -1) {
+        this.$delete(this.tasks, taskIndex)
+        console.log("task deleteed");
       }
     }
   }
