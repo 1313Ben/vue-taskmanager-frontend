@@ -34,27 +34,79 @@
                 todoTasks.length }})
               </div>
               <task
-                :tasks="tasks"
                 v-bind:task="task"
                 v-for="task in todoTasks"
                 :key="task.id"
               />
             </div>
-            <div class="six wide column"></div>
+
             <div id="completed" class="tasklist">
               <div class="ui header">
                 <i class="icon check circle green"></i>Completed Tasks ({{
                 completedTasks.length }})
               </div>
               <task
-                :tasks="tasks"
                 v-bind:task="task"
                 v-for="task in completedTasks"
                 :key="task.id"
               />
             </div>
           </div>
-          <div class="six wide column"></div>
+          <div class="six wide column">
+            <div id="editor" class="details ui raise segment purple">
+              <div class="ui header grid">
+                <div class="left nine wide column">
+                  <i class="icon edit violet"></i>Details
+                </div>
+                <div class="right float five wide column"></div>
+              </div>
+              <div class="ui segment">
+                <form class="ui form" v-on:submit="updateTask($event, task.id)">
+                  <input type="hidden" name="id" v-model="tasktoedit.id" />
+
+                  <div class="field">
+                    <label for="">Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      required="true"
+                      v-model="tasktoedit.name"
+                    />
+                  </div>
+
+                  <div class="field">
+                    <label for="">Description</label>
+                    <input
+                      type="text"
+                      name="description"
+                      placeholder="Description"
+                      required="true"
+                      v-model="tasktoedit.description"
+                    />
+                  </div>
+
+                  <div class="field inline">
+                    <label for="">Completed</label>
+                    <input
+                      type="checkbox"
+                      name="completed"
+                      v-model="tasktoedit.completed"
+                    />
+                  </div>
+
+                  <button
+                    class="ui button green"
+                    type="submit"
+                    v-on:click="
+                    updateTask($event,tasktoedit.id)"
+                  >
+                    Update
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
