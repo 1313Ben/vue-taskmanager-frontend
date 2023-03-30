@@ -11,6 +11,7 @@
       type="text/css"
       href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.2/dist/semantic.min.css"
     />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="app" class="pushable">
@@ -24,7 +25,33 @@
           </div>
         </div>
       </div>
-      <div class="ui container pusher">{{ message }}</div>
+      <div class="ui container pusher">
+        <div class="ui grid">
+          <div class="six wide column">
+            <div id="todo" class="tasklist">
+              <div class="ui header">
+                <i class="icon play circle orange"></i>In Progress Tasks ({{
+                todoTasks.length }})
+              </div>
+              <div v-for="task in todoTasks">
+                {{ task.name }}: {{ task.description }} completed? {{
+                task.completed }}
+              </div>
+            </div>
+            <div id="completed" class="tasklist">
+              <div class="ui header">
+                <i class="icon check circle green"></i>Completed Tasks ({{
+                completedTasks.length }})
+              </div>
+              <div v-for="task in completedTasks">
+                {{ task.name }}: {{ task.description }} completed? {{
+                task.completed }}
+              </div>
+            </div>
+          </div>
+          <div class="six wide column"></div>
+        </div>
+      </div>
     </div>
     <script src="app.js"></script>
   </body>
