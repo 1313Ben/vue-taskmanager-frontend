@@ -28,7 +28,8 @@ var app = new Vue({
       { id: 4, name: 'Todo 4', description: 'This is a another completed todo', completed: true}
     ],
     tasktoedit: {},
-    action: 'create'
+    action: 'create',
+    message: ""
   },
   computed: {
     completedTasks: function () {
@@ -45,6 +46,7 @@ var app = new Vue({
     clear: function () {
       this.tasktoedit = {}
       this.action = 'create'
+      this.message = ''
     },
     toggleDone: function (event, id) {
       event.stopImmediatePropagation();
@@ -54,10 +56,10 @@ var app = new Vue({
       if (task) {
         task.completed = !task.completed;
         // console.log("task toggled");
+        this.message = `Task ${id} updated`
       }
     },
     createTask: function () {
-      event.preventDefault()
       if (!this.tasktoedit.completed) {
         this.tasktoedit.completed = false
       } else {
@@ -65,8 +67,10 @@ var app = new Vue({
       }
       let taskId = this.nextId
       let newTask = Object.assign({}, this.tasktoedit)
+      newTask.id = taskId
       this.tasks.push(newTask)
       this.clear()
+      this.message = `Task ${taskId} created`
     },
     editTask: function (event, id) {
       this.action = 'edit'
@@ -79,13 +83,13 @@ var app = new Vue({
     },
     updateTask: function (event, id) {
       event.stopImmediatePropagation();
-      event.preventDefault();
       let task = this.tasks.find(item => item.id == id)
 
       if (task) {
         task.name = this.tasktoedit.name
         task.description = this.tasktoedit.description
         task.completed = this.tasktoedit.completed
+        this.message = `Task ${id} updated`
       }
     },
     deleteTask: function (event, id) {
@@ -96,7 +100,8 @@ var app = new Vue({
 
       if (taskIndex > -1) {
         this.$delete(this.tasks, taskIndex)
-        console.log("task deleteed");
+        //console.log("task deleteed");
+        this.message = `Task ${id} deleted`
       }
     }
   }

@@ -24,6 +24,12 @@
             Use this tool to manage your todos. Have fun!
           </div>
         </div>
+        <div class="item" v-if="message">
+          <div class="ui message blue">
+            <i class="icon info"></i>
+            {{ message }}
+          </div>
+        </div>
       </div>
       <div class="ui container pusher">
         <div class="ui grid">
@@ -68,7 +74,10 @@
                 </div>
               </div>
               <div class="ui segment">
-                <form class="ui form" v-on:submit="updateTask($event, task.id)">
+                <form
+                  class="ui form"
+                  v-on:submit.prevent=" action == 'create' ? createTask($event) : updateTask($event, tasktoedit.id)"
+                >
                   <input type="hidden" name="id" v-model="tasktoedit.id" />
 
                   <div class="field">
@@ -102,25 +111,7 @@
                     />
                   </div>
 
-                  <button
-                    class="ui button green"
-                    type="submit"
-                    v-if="action == 'edit'"
-                    v-on:click="
-                    updateTask($event,tasktoedit.id)"
-                  >
-                    Update
-                  </button>
-
-                  <button
-                    class="ui button green"
-                    type="submit"
-                    v-if="action == 'create'"
-                    v-on:click="
-                    createTask($event,tasktoedit.id)"
-                  >
-                    Create
-                  </button>
+                  <button class="ui button green">Submit</button>
                 </form>
               </div>
             </div>
